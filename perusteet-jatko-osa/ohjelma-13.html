@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fi">
+   <!-- React funktiokomponentti ja:
+          - tekstikenttä
+          - painike
+          - tapahtuman käsittelijä (event handler)
+          - tilan hallinta.
+          Käytetään JSX:ää.
+     -->
+   <head>
+      <meta charset="UTF-8"/>
+      <title>ReactJS perusteet - Ohjelma 13</title>
+      <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+      <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+      <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+   </head>
+   <body>
+      <div id="root"/>
+
+      <script type="text/babel">
+         
+         function Hello() {
+            const [nimi, setNimi] = React.useState("");
+
+            function handleChange(event) {
+               setNimi(event.target.value);
+            }
+         
+            function handleClick(event) {
+               alert("Hello " + nimi + "!");
+               // Estää näytön uudelleen piirtämisen (=kentän tyhjentymisen).
+               // Lisäksi, jos tätä ei ole, tilamuuttuja menee URL:n parametriksi
+               // (esim: ...?nimi=dddd)
+               event.preventDefault();
+            }
+
+            return (
+               <form>
+                  <label>
+                     Anna nimesi:<br/>
+                     <input type="text" id="nimi" name="nimi" onChange={handleChange} />
+                  </label>
+                  <br/><br/>
+                  <button onClick={handleClick}>
+                     OK
+                  </button>
+               </form>
+            );
+         }
+
+         const root = ReactDOM.createRoot(document.getElementById('root'));
+         root.render(<Hello />);
+      </script>
+   </body>
+</html>
